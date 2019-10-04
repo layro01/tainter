@@ -1,12 +1,12 @@
 const IAST = require('./iast-sdk');
 
 // Mock an HTTP request object.
-const request = new Object();
-request.query = new Object();
-request.query.param1 = '1'; // This would be tainted in the real application
+const requestMock = new Object();
+requestMock.query = new Object();
+requestMock.query.param1 = IAST.taintObject('1'); // This would be tainted in the real application
 
-IAST.taintObject(request);
+// const taintedRequestMock = IAST.taintObject(request);
 
-const value1 = eval(request.query.param1);
+const value1 = eval(requestMock.query.param1);
 
 console.log(value1);
